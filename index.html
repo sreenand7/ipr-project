@@ -546,6 +546,121 @@
             color: #1A6B3C;
             background: #E8F5EE;
         }
+
+        .my-reports-btn:hover {
+            background: #1A6B3C;
+            color: white;
+            border-color: #1A6B3C;
+        }
+
+        /* ── My Reports Page ── */
+        .my-reports-page {
+            min-height: 100vh;
+            background: #f8fafc;
+            padding-top: 64px;
+        }
+
+        /* ── Report Card ── */
+        .my-report-card {
+            background: white;
+            border-radius: 1.25rem;
+            padding: 1.25rem 1.5rem;
+            border: 1.5px solid #e5e7eb;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .my-report-card:hover {
+            box-shadow: 0 8px 28px rgba(26, 107, 60, 0.10);
+            border-color: #c5e6d2;
+        }
+
+        /* ── Photo placeholder ── */
+        .photo-placeholder {
+            width: 72px;
+            height: 72px;
+            min-width: 72px;
+            border-radius: 1rem;
+            background: #E8F5EE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1.5px solid #c5e6d2;
+        }
+
+        /* ── Horizontal Step Tracker ── */
+        .step-track {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .step-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            flex-shrink: 0;
+        }
+
+        .step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .step-dot.done {
+            background: #1A6B3C;
+            color: white;
+        }
+
+        .step-dot.active {
+            background: #1A6B3C;
+            color: white;
+            box-shadow: 0 0 0 4px rgba(26, 107, 60, 0.18);
+        }
+
+        .step-dot.idle {
+            background: #e5e7eb;
+            color: #9ca3af;
+        }
+
+        .step-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-align: center;
+            max-width: 52px;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        .step-label.done,
+        .step-label.active {
+            color: #1A6B3C;
+        }
+
+        .step-label.idle {
+            color: #9ca3af;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            margin-top: 13px;
+            background: #e5e7eb;
+            transition: background 0.2s ease;
+        }
+
+        .step-line.done {
+            background: #1A6B3C;
+        }
     </style>
 </head>
 
@@ -587,7 +702,7 @@
         }
 
         /* ─────────────── NAVBAR ─────────────── */
-        function Navbar({ onOpenModal }) {
+        function Navbar({ onOpenModal, isLoggedIn, onOpenMyReports, onDemoLogin, onLogout }) {
             const [scrolled, setScrolled] = useState(false);
             const [menuOpen, setMenuOpen] = useState(false);
 
@@ -614,12 +729,34 @@
 
                             {/* Desktop Buttons */}
                             <div className="hidden md:flex items-center gap-3">
-                                <button onClick={() => onOpenModal('login')} className="btn-outline px-5 py-2 rounded-lg font-semibold text-sm">
-                                    Login
-                                </button>
-                                <button onClick={() => onOpenModal('register')} className="btn-primary text-white px-5 py-2 rounded-lg font-semibold text-sm">
-                                    Register
-                                </button>
+                                {isLoggedIn ? (
+                                    <>
+                                        <button onClick={onOpenMyReports} className="my-reports-btn">
+                                            <Icon name="ClipboardList" size={14} className="text-current" /> My Reports
+                                        </button>
+                                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary-50 border border-primary-100">
+                                            <div className="w-6 h-6 rounded-full bg-primary-600 flex items-center justify-center">
+                                                <Icon name="User" size={13} className="text-white" />
+                                            </div>
+                                            <span className="text-sm font-semibold text-primary-700">You</span>
+                                        </div>
+                                        <button onClick={onLogout} className="btn-outline px-5 py-2 rounded-lg font-semibold text-sm">
+                                            Logout
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button onClick={() => onOpenModal('login')} className="btn-outline px-5 py-2 rounded-lg font-semibold text-sm">
+                                            Login
+                                        </button>
+                                        <button onClick={() => onOpenModal('register')} className="btn-primary text-white px-5 py-2 rounded-lg font-semibold text-sm">
+                                            Register
+                                        </button>
+                                        <button onClick={onDemoLogin} className="btn-primary text-white px-5 py-2 rounded-lg font-semibold text-sm">
+                                            Demo Login
+                                        </button>
+                                    </>
+                                )}
                             </div>
 
                             {/* Mobile hamburger */}
@@ -635,12 +772,28 @@
                         {/* Mobile Menu */}
                         {menuOpen && (
                             <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4 pt-2 flex flex-col gap-2">
-                                <button onClick={() => { setMenuOpen(false); onOpenModal('login'); }} className="btn-outline w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
-                                    Login
-                                </button>
-                                <button onClick={() => { setMenuOpen(false); onOpenModal('register'); }} className="btn-primary text-white w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
-                                    Register
-                                </button>
+                                {isLoggedIn ? (
+                                    <>
+                                        <button onClick={() => { setMenuOpen(false); onOpenMyReports(); }} className="my-reports-btn w-full justify-center py-2.5">
+                                            <Icon name="ClipboardList" size={14} className="text-current" /> My Reports
+                                        </button>
+                                        <button onClick={() => { setMenuOpen(false); onLogout(); }} className="btn-outline w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
+                                            Logout
+                                        </button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button onClick={() => { setMenuOpen(false); onOpenModal('login'); }} className="btn-outline w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
+                                            Login
+                                        </button>
+                                        <button onClick={() => { setMenuOpen(false); onOpenModal('register'); }} className="btn-primary text-white w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
+                                            Register
+                                        </button>
+                                        <button onClick={() => { setMenuOpen(false); onDemoLogin(); }} className="btn-primary text-white w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
+                                            Demo Login
+                                        </button>
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>
@@ -1011,7 +1164,7 @@
         }
 
         /* ─────────────── AUTH MODAL ─────────────── */
-        function AuthModal({ initialView, onClose }) {
+        function AuthModal({ initialView, onClose, onLogin }) {
             const [view, setView] = useState(initialView); // 'login' | 'register'
             const [success, setSuccess] = useState(false);
             const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '', role: 'citizen' });
@@ -1052,7 +1205,7 @@
                 if (Object.keys(e).length) { setErrors(e); return; }
                 setErrors({});
                 setLoading(true);
-                setTimeout(() => { setLoading(false); setSuccess(true); }, 1200);
+                setTimeout(() => { setLoading(false); setSuccess(true); if (onLogin) onLogin(); }, 1200);
             };
 
             const isLogin = view === 'login';
@@ -1490,6 +1643,133 @@
             );
         }
 
+        /* ─────────────── MY REPORTS PAGE ─────────────── */
+        const MY_REPORTS_DATA = [
+            {
+                id: 1,
+                title: 'Large pothole near MG Road junction',
+                category: 'Pothole', catIcon: 'TriangleAlert', catColor: '#dc2626', catBg: '#fef2f2',
+                date: '2026-03-01',
+                location: 'MG Road, Bengaluru',
+                status: 'In Progress',   // Submitted → AI Verified → [In Progress] → Resolved
+                upvotes: 14,
+            },
+            {
+                id: 2,
+                title: 'Overflowing garbage bin at City Park gate',
+                category: 'Garbage', catIcon: 'Trash2', catColor: '#65a30d', catBg: '#f7fee7',
+                date: '2026-03-05',
+                location: 'City Park Gate, Pune',
+                status: 'Resolved',      // all steps done
+                upvotes: 27,
+            },
+            {
+                id: 3,
+                title: 'Street light out on Infantry Road',
+                category: 'Street Light', catIcon: 'Lightbulb', catColor: '#d97706', catBg: '#fffbeb',
+                date: '2026-03-08',
+                location: 'Infantry Road, Bengaluru',
+                status: 'AI Verified',   // Submitted → [AI Verified] → In Progress → Resolved
+                upvotes: 9,
+            },
+        ];
+
+        const REPORT_STEPS = ['Submitted', 'AI Verified', 'In Progress', 'Resolved'];
+
+        function StatusStepTracker({ status }) {
+            const activeIdx = REPORT_STEPS.indexOf(status);
+            return (
+                <div className="step-track">
+                    {REPORT_STEPS.map((step, i) => {
+                        const state = i < activeIdx ? 'done' : i === activeIdx ? 'active' : 'idle';
+                        return (
+                            <React.Fragment key={step}>
+                                {i > 0 && <div className={`step-line ${i <= activeIdx ? 'done' : ''}`} />}
+                                <div className="step-node">
+                                    <div className={`step-dot ${state}`}>
+                                        {state === 'done'
+                                            ? <Icon name="Check" size={11} className="text-white" />
+                                            : <span>{i + 1}</span>
+                                        }
+                                    </div>
+                                    <span className={`step-label ${state}`}>{step}</span>
+                                </div>
+                            </React.Fragment>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        function MyReports({ onBack }) {
+            return (
+                <div className="my-reports-page">
+                    {/* Top bar */}
+                    <div className="sticky top-16 z-40 bg-white border-b border-gray-100 shadow-sm">
+                        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center gap-4">
+                            <button
+                                onClick={onBack}
+                                className="flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors"
+                            >
+                                <Icon name="ArrowLeft" size={16} className="text-gray-500" /> Back
+                            </button>
+                            <div className="flex items-center gap-3">
+                                <h1 className="text-lg font-extrabold text-gray-900">My Reports</h1>
+                                <span className="inline-flex items-center justify-center bg-primary-600 text-white text-xs font-bold w-6 h-6 rounded-full">
+                                    {MY_REPORTS_DATA.length}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-5">
+                        {MY_REPORTS_DATA.map(report => (
+                            <div key={report.id} className="my-report-card">
+                                <div className="flex gap-4">
+                                    {/* Photo placeholder */}
+                                    <div className="photo-placeholder">
+                                        <Icon name={report.catIcon} size={28} className="text-primary-500" />
+                                    </div>
+
+                                    {/* Content */}
+                                    <div className="flex-1 min-w-0">
+                                        <div className="flex items-start justify-between gap-2 mb-1">
+                                            <p className="font-bold text-gray-900 text-sm leading-snug">{report.title}</p>
+                                            <span
+                                                className="shrink-0 inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold"
+                                                style={{ background: report.catBg, color: report.catColor }}
+                                            >
+                                                <Icon name={report.catIcon} size={11} className="text-current" />
+                                                {report.category}
+                                            </span>
+                                        </div>
+
+                                        <div className="flex items-center gap-3 text-xs text-gray-400">
+                                            <span className="flex items-center gap-1">
+                                                <Icon name="MapPin" size={11} className="text-gray-300" />
+                                                {report.location}
+                                            </span>
+                                            <span className="flex items-center gap-1">
+                                                <Icon name="Calendar" size={11} className="text-gray-300" />
+                                                {report.date}
+                                            </span>
+                                            <span className="flex items-center gap-1 font-semibold text-gray-500">
+                                                <Icon name="ArrowBigUp" size={12} className="text-gray-400" />
+                                                {report.upvotes}
+                                            </span>
+                                        </div>
+
+                                        {/* Step tracker */}
+                                        <StatusStepTracker status={report.status} />
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
         /* ─────────────── VIEW ISSUES PAGE ─────────────── */
         const ISSUES = [
             { id: 1, title: 'Large pothole on MG Road', category: 'Pothole', catIcon: 'TriangleAlert', status: 'Pending', date: '2026-03-01', location: 'MG Road, Bengaluru', votes: 14, x: 18, y: 28 },
@@ -1711,9 +1991,11 @@
 
         /* ─────────────── APP ─────────────── */
         function App() {
-            const [modalView, setModalView] = useState(null);  // null | 'login' | 'register'
+            const [modalView, setModalView] = useState(null);
             const [reportOpen, setReportOpen] = useState(false);
             const [issuesOpen, setIssuesOpen] = useState(false);
+            const [myReportsOpen, setMyReportsOpen] = useState(false);
+            const [isLoggedIn, setIsLoggedIn] = useState(false);
 
             const openModal = (view) => { setModalView(view); document.body.style.overflow = 'hidden'; };
             const closeModal = () => { setModalView(null); document.body.style.overflow = ''; };
@@ -1721,11 +2003,25 @@
             const closeReport = () => { setReportOpen(false); document.body.style.overflow = ''; };
             const openIssues = () => { setIssuesOpen(true); window.scrollTo(0, 0); };
             const closeIssues = () => { setIssuesOpen(false); };
+            const openMyReports = () => { setMyReportsOpen(true); window.scrollTo(0, 0); };
+            const closeMyReports = () => { setMyReportsOpen(false); };
+            const handleLogin = () => { setIsLoggedIn(true); };
+            const handleDemoLogin = () => { setIsLoggedIn(true); };
+            const handleLogout = () => { setIsLoggedIn(false); };
+
+            if (myReportsOpen) {
+                return (
+                    <>
+                        <Navbar onOpenModal={openModal} isLoggedIn={isLoggedIn} onOpenMyReports={openMyReports} onDemoLogin={handleDemoLogin} onLogout={handleLogout} />
+                        <MyReports onBack={closeMyReports} />
+                    </>
+                );
+            }
 
             if (issuesOpen) {
                 return (
                     <>
-                        <Navbar onOpenModal={openModal} />
+                        <Navbar onOpenModal={openModal} isLoggedIn={isLoggedIn} onOpenMyReports={openMyReports} onDemoLogin={handleDemoLogin} onLogout={handleLogout} />
                         <ViewIssues onBack={closeIssues} />
                     </>
                 );
@@ -1733,7 +2029,7 @@
 
             return (
                 <>
-                    <Navbar onOpenModal={openModal} />
+                    <Navbar onOpenModal={openModal} isLoggedIn={isLoggedIn} onOpenMyReports={openMyReports} onDemoLogin={handleDemoLogin} onLogout={handleLogout} />
                     <main>
                         <Hero onOpenReport={openReport} onOpenIssues={openIssues} />
                         <HowItWorks />
@@ -1742,7 +2038,7 @@
                         <CTABanner onOpenIssues={openIssues} />
                     </main>
                     <Footer />
-                    {modalView && <AuthModal initialView={modalView} onClose={closeModal} />}
+                    {modalView && <AuthModal initialView={modalView} onClose={closeModal} onLogin={handleLogin} />}
                     {reportOpen && <ReportModal onClose={closeReport} />}
                 </>
             );
