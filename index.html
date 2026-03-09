@@ -166,6 +166,138 @@
             opacity: 1;
             transform: translateY(0);
         }
+
+        /* ── Auth Modal ── */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            animation: bdFadeIn 0.2s ease both;
+        }
+
+        @keyframes bdFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-card {
+            background: white;
+            border-radius: 1.5rem;
+            width: 100%;
+            max-width: 440px;
+            padding: 2.25rem 2rem;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+            animation: cardSlideUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+            position: relative;
+        }
+
+        @keyframes cardSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .auth-field {
+            width: 100%;
+            padding: 0.65rem 0.9rem 0.65rem 2.5rem;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 0.7rem;
+            font-size: 0.9rem;
+            color: #1f2937;
+            background: #f9fafb;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+        }
+
+        .auth-field:focus {
+            border-color: #1A6B3C;
+            box-shadow: 0 0 0 3px rgba(26, 107, 60, 0.12);
+            background: white;
+        }
+
+        .auth-field.field-error {
+            border-color: #ef4444;
+        }
+
+        .auth-field::placeholder {
+            color: #9ca3af;
+        }
+
+        .modal-submit {
+            width: 100%;
+            padding: 0.8rem;
+            background: #1A6B3C;
+            color: white;
+            border: none;
+            border-radius: 0.8rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+        }
+
+        .modal-submit:hover {
+            background: #145430;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(26, 107, 60, 0.28);
+        }
+
+        .role-pill {
+            flex: 1;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+
+        .role-pill.active {
+            background: #1A6B3C;
+            color: white;
+        }
+
+        .role-pill.inactive {
+            background: transparent;
+            color: #6b7280;
+        }
+
+        .role-pill.inactive:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .modal-link {
+            color: #1A6B3C;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .modal-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -207,7 +339,7 @@
         }
 
         /* ─────────────── NAVBAR ─────────────── */
-        function Navbar() {
+        function Navbar({ onOpenModal }) {
             const [scrolled, setScrolled] = useState(false);
             const [menuOpen, setMenuOpen] = useState(false);
 
@@ -234,10 +366,10 @@
 
                             {/* Desktop Buttons */}
                             <div className="hidden md:flex items-center gap-3">
-                                <button className="btn-outline px-5 py-2 rounded-lg font-semibold text-sm">
+                                <button onClick={() => onOpenModal('login')} className="btn-outline px-5 py-2 rounded-lg font-semibold text-sm">
                                     Login
                                 </button>
-                                <button className="btn-primary text-white px-5 py-2 rounded-lg font-semibold text-sm">
+                                <button onClick={() => onOpenModal('register')} className="btn-primary text-white px-5 py-2 rounded-lg font-semibold text-sm">
                                     Register
                                 </button>
                             </div>
@@ -255,10 +387,10 @@
                         {/* Mobile Menu */}
                         {menuOpen && (
                             <div className="md:hidden bg-white border-t border-gray-100 px-4 pb-4 pt-2 flex flex-col gap-2">
-                                <button className="btn-outline w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
+                                <button onClick={() => { setMenuOpen(false); onOpenModal('login'); }} className="btn-outline w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
                                     Login
                                 </button>
-                                <button className="btn-primary text-white w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
+                                <button onClick={() => { setMenuOpen(false); onOpenModal('register'); }} className="btn-primary text-white w-full px-5 py-2.5 rounded-lg font-semibold text-sm">
                                     Register
                                 </button>
                             </div>
@@ -495,13 +627,14 @@
         /* ─────────────── ISSUE CATEGORIES ─────────────── */
         function IssueCategories() {
             const ref = useFadeIn();
+            const [hoveredIdx, setHoveredIdx] = useState(null);
             const categories = [
-                { icon: 'TriangleAlert', label: 'Pothole', bg: 'bg-red-50', iconColor: 'text-red-500' },
-                { icon: 'Trash2', label: 'Garbage', bg: 'bg-lime-50', iconColor: 'text-lime-600' },
-                { icon: 'Lightbulb', label: 'Street Light', bg: 'bg-yellow-50', iconColor: 'text-yellow-500' },
-                { icon: 'Droplets', label: 'Water Leak', bg: 'bg-blue-50', iconColor: 'text-blue-500' },
-                { icon: 'Construction', label: 'Road Damage', bg: 'bg-orange-50', iconColor: 'text-orange-500' },
-                { icon: 'Building2', label: 'Public Property', bg: 'bg-purple-50', iconColor: 'text-purple-500' },
+                { icon: 'TriangleAlert', label: 'Pothole', bg: 'bg-red-50' },
+                { icon: 'Trash2', label: 'Garbage', bg: 'bg-lime-50' },
+                { icon: 'Lightbulb', label: 'Street Light', bg: 'bg-yellow-50' },
+                { icon: 'Droplets', label: 'Water Leak', bg: 'bg-blue-50' },
+                { icon: 'Construction', label: 'Road Damage', bg: 'bg-orange-50' },
+                { icon: 'Building2', label: 'Public Property', bg: 'bg-purple-50' },
             ];
             return (
                 <section id="categories" className="py-24 bg-white">
@@ -515,19 +648,36 @@
                             </p>
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                            {categories.map((c, i) => (
-                                <div
-                                    key={i}
-                                    className={`category-card cursor-pointer ${c.bg} rounded-2xl p-6 flex flex-col items-center gap-3 border border-transparent`}
-                                >
-                                    <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                                        <Icon name={c.icon} size={26} className={`cat-icon ${c.iconColor}`} />
+                            {categories.map((c, i) => {
+                                const hovered = hoveredIdx === i;
+                                return (
+                                    <div
+                                        key={i}
+                                        onMouseEnter={() => setHoveredIdx(i)}
+                                        onMouseLeave={() => setHoveredIdx(null)}
+                                        style={{
+                                            background: hovered ? '#1A6B3C' : '',
+                                            transform: hovered ? 'translateY(-4px)' : 'translateY(0)',
+                                            boxShadow: hovered ? '0 12px 30px rgba(26,107,60,0.25)' : '',
+                                            transition: 'all 0.25s ease',
+                                        }}
+                                        className={`cursor-pointer ${hovered ? '' : c.bg} rounded-2xl p-6 flex flex-col items-center gap-3 border border-transparent`}
+                                    >
+                                        <div
+                                            style={{ background: hovered ? 'rgba(255,255,255,0.2)' : 'white' }}
+                                            className="w-14 h-14 rounded-xl flex items-center justify-center shadow-sm"
+                                        >
+                                            <Icon name={c.icon} size={26} className={hovered ? 'text-white' : 'text-gray-600'} />
+                                        </div>
+                                        <span
+                                            className="text-sm font-semibold text-center"
+                                            style={{ color: hovered ? 'white' : '#374151', transition: 'color 0.25s ease' }}
+                                        >
+                                            {c.label}
+                                        </span>
                                     </div>
-                                    <span className={`cat-label text-sm font-semibold text-gray-700 text-center`}>
-                                        {c.label}
-                                    </span>
-                                </div>
-                            ))}
+                                );
+                            })}
                         </div>
                     </div>
                 </section>
@@ -612,11 +762,183 @@
             );
         }
 
+        /* ─────────────── AUTH MODAL ─────────────── */
+        function AuthModal({ initialView, onClose }) {
+            const [view, setView] = useState(initialView); // 'login' | 'register'
+            const [success, setSuccess] = useState(false);
+            const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '', role: 'citizen' });
+            const [errors, setErrors] = useState({});
+            const [loading, setLoading] = useState(false);
+
+            const set = (field) => (e) => setForm(f => ({ ...f, [field]: e.target.value }));
+
+            // Close on backdrop click
+            const handleBackdrop = (e) => { if (e.target === e.currentTarget) onClose(); };
+
+            // Close on Escape
+            useEffect(() => {
+                const handler = (e) => { if (e.key === 'Escape') onClose(); };
+                document.addEventListener('keydown', handler);
+                return () => document.removeEventListener('keydown', handler);
+            }, []);
+
+            const switchView = (v) => { setErrors({}); setSuccess(false); setForm({ name: '', email: '', password: '', confirm: '', role: 'citizen' }); setView(v); };
+
+            const validate = () => {
+                const e = {};
+                if (view === 'register' && !form.name.trim()) e.name = 'Full name is required';
+                if (!form.email.trim()) e.email = 'Email is required';
+                else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email address';
+                if (!form.password) e.password = 'Password is required';
+                else if (form.password.length < 6) e.password = 'Min. 6 characters required';
+                if (view === 'register') {
+                    if (!form.confirm) e.confirm = 'Please confirm your password';
+                    else if (form.confirm !== form.password) e.confirm = 'Passwords do not match';
+                }
+                return e;
+            };
+
+            const handleSubmit = (ev) => {
+                ev.preventDefault();
+                const e = validate();
+                if (Object.keys(e).length) { setErrors(e); return; }
+                setErrors({});
+                setLoading(true);
+                setTimeout(() => { setLoading(false); setSuccess(true); }, 1200);
+            };
+
+            const isLogin = view === 'login';
+
+            return (
+                <div className="modal-backdrop" onClick={handleBackdrop}>
+                    <div className="modal-card">
+                        {/* X button row — always above everything */}
+                        <div className="flex justify-end mb-3 -mt-1">
+                            <button
+                                onClick={onClose}
+                                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                                aria-label="Close"
+                            >
+                                <Icon name="X" size={16} className="text-gray-600" />
+                            </button>
+                        </div>
+
+                        {success ? (
+                            /* ── Success ── */
+                            <div className="text-center py-4">
+                                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
+                                    style={{ background: 'linear-gradient(135deg,#1A6B3C,#2E9455)' }}>
+                                    <Icon name="CheckCheck" size={30} className="text-white" />
+                                </div>
+                                <h2 className="text-xl font-extrabold text-gray-900 mb-2">
+                                    {isLogin ? 'Signed in successfully!' : 'Account created!'}
+                                </h2>
+                                <p className="text-gray-500 text-sm mb-5">
+                                    {isLogin
+                                        ? 'Welcome back to FixMyArea. Start tracking your reports.'
+                                        : 'Your account is ready. Start reporting civic issues today!'}
+                                </p>
+                                <button onClick={onClose} className="modal-submit">Back to Home</button>
+                            </div>
+                        ) : (
+                            <>
+                                {/* Tab pills */}
+                                <div className="flex gap-2 p-1 bg-gray-100 rounded-xl mb-6">
+                                    {['login', 'register'].map(v => (
+                                        <button key={v} onClick={() => switchView(v)}
+                                            className="flex-1 py-2 rounded-lg text-sm font-semibold transition-all duration-200"
+                                            style={view === v ? { background: '#1A6B3C', color: 'white', boxShadow: '0 2px 8px rgba(26,107,60,0.2)' } : { background: 'transparent', color: '#6b7280' }}>
+                                            {v === 'login' ? 'Login' : 'Register'}
+                                        </button>
+                                    ))}
+                                </div>
+
+                                <div className="mb-5">
+                                    <h2 className="text-xl font-extrabold text-gray-900 mb-0.5">
+                                        {isLogin ? 'Welcome back' : 'Create an account'}
+                                    </h2>
+                                    <p className="text-gray-400 text-sm">
+                                        {isLogin ? 'Sign in to your FixMyArea account' : 'Join FixMyArea and help improve your city'}
+                                    </p>
+                                </div>
+
+                                <form onSubmit={handleSubmit} className="space-y-3" noValidate>
+                                    {!isLogin && (
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">Full Name</label>
+                                            <div className="relative">
+                                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><Icon name="User" size={15} /></span>
+                                                <input type="text" placeholder="Jane Doe" value={form.name} onChange={set('name')}
+                                                    className={`auth-field ${errors.name ? 'field-error' : ''}`} />
+                                            </div>
+                                            {errors.name && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.name}</p>}
+                                        </div>
+                                    )}
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-1">Email Address</label>
+                                        <div className="relative">
+                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><Icon name="Mail" size={15} /></span>
+                                            <input type="email" placeholder="you@example.com" value={form.email} onChange={set('email')}
+                                                className={`auth-field ${errors.email ? 'field-error' : ''}`} />
+                                        </div>
+                                        {errors.email && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.email}</p>}
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-1">Password</label>
+                                        <div className="relative">
+                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><Icon name="Lock" size={15} /></span>
+                                            <input type="password" placeholder={isLogin ? 'Enter your password' : 'Min. 6 characters'} value={form.password} onChange={set('password')}
+                                                className={`auth-field ${errors.password ? 'field-error' : ''}`} />
+                                        </div>
+                                        {errors.password && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.password}</p>}
+                                    </div>
+
+                                    {!isLogin && (
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">Confirm Password</label>
+                                            <div className="relative">
+                                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><Icon name="ShieldCheck" size={15} /></span>
+                                                <input type="password" placeholder="Re-enter password" value={form.confirm} onChange={set('confirm')}
+                                                    className={`auth-field ${errors.confirm ? 'field-error' : ''}`} />
+                                            </div>
+                                            {errors.confirm && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.confirm}</p>}
+                                        </div>
+                                    )}
+
+
+                                    <button type="submit" className="modal-submit !mt-4" disabled={loading}>
+                                        {loading
+                                            ? <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}><Icon name="Loader" size={16} className="text-white" style={{ animation: 'spin 1s linear infinite' }} />{isLogin ? 'Signing in…' : 'Creating account…'}</span>
+                                            : <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}><Icon name={isLogin ? 'LogIn' : 'UserPlus'} size={16} className="text-white" />{isLogin ? 'Sign In' : 'Create Account'}</span>
+                                        }
+                                    </button>
+                                </form>
+
+                                <p className="text-center text-sm text-gray-500 mt-4">
+                                    {isLogin ? "Don't have an account? " : 'Already have an account? '}
+                                    <span className="modal-link" onClick={() => switchView(isLogin ? 'register' : 'login')}>
+                                        {isLogin ? 'Register' : 'Login'}
+                                    </span>
+                                </p>
+                            </>
+                        )}
+                    </div>
+                </div >
+            );
+        }
+
         /* ─────────────── APP ─────────────── */
         function App() {
+            const [modalView, setModalView] = useState(null); // null | 'login' | 'register'
+
+            const openModal = (view) => { setModalView(view); document.body.style.overflow = 'hidden'; };
+            const closeModal = () => { setModalView(null); document.body.style.overflow = ''; };
+
             return (
                 <>
-                    <Navbar />
+                    <Navbar onOpenModal={openModal} />
                     <main>
                         <Hero />
                         <HowItWorks />
@@ -625,6 +947,7 @@
                         <CTABanner />
                     </main>
                     <Footer />
+                    {modalView && <AuthModal initialView={modalView} onClose={closeModal} />}
                 </>
             );
         }
