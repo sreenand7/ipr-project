@@ -298,6 +298,254 @@
         .modal-link:hover {
             text-decoration: underline;
         }
+
+        /* ── Report Modal extras ── */
+        .report-progress-bar {
+            height: 4px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            overflow: hidden;
+        }
+
+        .report-progress-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #1A6B3C, #2E9455);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .cat-pick {
+            border: 2px solid #e5e7eb;
+            border-radius: 0.85rem;
+            padding: 0.65rem 0.5rem;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.35rem;
+            background: #f9fafb;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #6b7280;
+        }
+
+        .cat-pick:hover {
+            border-color: #1A6B3C;
+            background: #E8F5EE;
+            color: #1A6B3C;
+        }
+
+        .cat-pick.selected {
+            border-color: #1A6B3C;
+            background: #1A6B3C;
+            color: white;
+            box-shadow: 0 4px 12px rgba(26, 107, 60, 0.25);
+        }
+
+        .drop-zone {
+            border: 2px dashed #d1d5db;
+            border-radius: 1rem;
+            padding: 2rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.18s, background 0.18s;
+            background: #f9fafb;
+        }
+
+        .drop-zone:hover,
+        .drop-zone.drag-over {
+            border-color: #1A6B3C;
+            background: #E8F5EE;
+        }
+
+        .report-step {
+            animation: stepIn 0.3s cubic-bezier(0.34, 1.1, 0.64, 1) both;
+        }
+
+        @keyframes stepIn {
+            from {
+                opacity: 0;
+                transform: translateX(18px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .report-textarea {
+            width: 100%;
+            padding: 0.65rem 0.9rem;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 0.7rem;
+            font-size: 0.9rem;
+            color: #1f2937;
+            background: #f9fafb;
+            outline: none;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 90px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .report-textarea:focus {
+            border-color: #1A6B3C;
+            box-shadow: 0 0 0 3px rgba(26, 107, 60, 0.10);
+            background: white;
+        }
+
+        .modal-card-wide {
+            background: white;
+            border-radius: 1.5rem;
+            width: 100%;
+            max-width: 520px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem 2rem 2.25rem;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+            animation: cardSlideUp 0.3s cubic-bezier(0.34, 1.2, 0.64, 1) both;
+            position: relative;
+        }
+
+        /* ── View Issues Page ── */
+        .issues-page {
+            min-height: 100vh;
+            background: #f8fafc;
+            padding-top: 64px;
+            /* navbar height */
+        }
+
+        .issues-tab {
+            padding: 0.55rem 1.4rem;
+            border-radius: 0.6rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: all 0.18s ease;
+        }
+
+        .issues-tab.active {
+            background: #1A6B3C;
+            color: white;
+            box-shadow: 0 4px 14px rgba(26, 107, 60, 0.25);
+        }
+
+        .issues-tab.inactive {
+            background: transparent;
+            color: #6b7280;
+        }
+
+        .issues-tab.inactive:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        /* Map */
+        .sim-map {
+            background: #e8f5ee;
+            border-radius: 1.25rem;
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            border: 1.5px solid #c3e6d0;
+        }
+
+        .map-pin {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            z-index: 10;
+        }
+
+        .map-pin:hover {
+            transform: scale(1.35);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+        }
+
+        .pin-popup {
+            position: absolute;
+            background: white;
+            border-radius: 0.85rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+            padding: 0.85rem 1rem;
+            min-width: 190px;
+            z-index: 20;
+            animation: cardSlideUp 0.2s ease both;
+            border: 1.5px solid #e5e7eb;
+        }
+
+        /* List */
+        .issue-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.1rem 1.25rem;
+            border: 1.5px solid #e5e7eb;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+        }
+
+        .issue-card:hover {
+            box-shadow: 0 8px 28px rgba(26, 107, 60, 0.10);
+            transform: translateY(-2px);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+        }
+
+        .filter-select {
+            padding: 0.45rem 0.9rem;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 0.6rem;
+            font-size: 0.85rem;
+            color: #374151;
+            background: white;
+            font-family: inherit;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.15s;
+        }
+
+        .filter-select:focus {
+            border-color: #1A6B3C;
+        }
+
+        .upvote-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: white;
+            font-family: inherit;
+            transition: all 0.15s;
+            color: #6b7280;
+        }
+
+        .upvote-btn:hover,
+        .upvote-btn.voted {
+            border-color: #1A6B3C;
+            color: #1A6B3C;
+            background: #E8F5EE;
+        }
     </style>
 </head>
 
@@ -401,7 +649,7 @@
         }
 
         /* ─────────────── HERO ─────────────── */
-        function Hero() {
+        function Hero({ onOpenReport, onOpenIssues }) {
             return (
                 <section className="hero-gradient min-h-screen flex items-center pt-16">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28 grid lg:grid-cols-2 gap-12 items-center">
@@ -420,13 +668,13 @@
                                 FixMyArea uses AI to validate and route citizen reports — potholes, garbage, broken lights, water leaks — directly to the right local authorities. Faster. Smarter.
                             </p>
                             <div className="flex flex-wrap gap-3">
-                                <button className="btn-primary text-white px-7 py-3.5 rounded-xl font-bold text-base flex items-center gap-2">
+                                <button onClick={onOpenReport} className="btn-primary text-white px-7 py-3.5 rounded-xl font-bold text-base flex items-center gap-2">
                                     <Icon name="AlertCircle" size={18} className="text-white" />
                                     Report an Issue
                                 </button>
-                                <button className="btn-outline px-7 py-3.5 rounded-xl font-bold text-base flex items-center gap-2">
+                                <button onClick={onOpenIssues} className="btn-outline px-7 py-3.5 rounded-xl font-bold text-base flex items-center gap-2">
                                     <Icon name="PlayCircle" size={18} />
-                                    See How It Works
+                                    Browse Issues
                                 </button>
                             </div>
                             <div className="mt-10 flex items-center gap-6">
@@ -685,7 +933,7 @@
         }
 
         /* ─────────────── CTA BANNER ─────────────── */
-        function CTABanner() {
+        function CTABanner({ onOpenIssues }) {
             const ref = useFadeIn();
             return (
                 <section className="py-20" style={{ background: 'linear-gradient(135deg,#1A6B3C 0%,#2E9455 100%)' }}>
@@ -705,7 +953,7 @@
                                 <Icon name="UserPlus" size={18} className="text-primary-600" />
                                 Get Started Free
                             </button>
-                            <button className="bg-white/10 text-white font-bold px-8 py-3.5 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200 flex items-center gap-2 hover:-translate-y-1">
+                            <button onClick={onOpenIssues} className="bg-white/10 text-white font-bold px-8 py-3.5 rounded-xl border border-white/30 hover:bg-white/20 transition-all duration-200 flex items-center gap-2 hover:-translate-y-1">
                                 <Icon name="MapPin" size={18} className="text-white" />
                                 Explore the Map
                             </button>
@@ -929,25 +1177,573 @@
             );
         }
 
+        /* ─────────────── REPORT MODAL ─────────────── */
+        const CATEGORIES = [
+            { key: 'pothole', label: 'Pothole', icon: 'TriangleAlert' },
+            { key: 'garbage', label: 'Garbage', icon: 'Trash2' },
+            { key: 'light', label: 'Street Light', icon: 'Lightbulb' },
+            { key: 'water', label: 'Water Leak', icon: 'Droplets' },
+            { key: 'road', label: 'Road Damage', icon: 'Construction' },
+            { key: 'property', label: 'Public Property', icon: 'Building2' },
+        ];
+
+        function ReportModal({ onClose }) {
+            const [step, setStep] = useState(1);
+            const [submitted, setSubmitted] = useState(false);
+            const [isDrag, setIsDrag] = useState(false);
+            const [data, setData] = useState({
+                title: '', category: '', description: '',
+                photo: null, photoName: '', location: '',
+            });
+            const [errors, setErrors] = useState({});
+            const fileRef = useRef(null);
+
+            // Escape key
+            useEffect(() => {
+                const h = (e) => { if (e.key === 'Escape') onClose(); };
+                document.addEventListener('keydown', h);
+                return () => document.removeEventListener('keydown', h);
+            }, []);
+
+            const set = (f, v) => setData(d => ({ ...d, [f]: v }));
+
+            const handleFile = (file) => {
+                if (!file || !file.type.startsWith('image/')) return;
+                const reader = new FileReader();
+                reader.onload = (e) => set('photo', e.target.result);
+                reader.readAsDataURL(file);
+                set('photoName', file.name);
+            };
+
+            const useLocation = () => {
+                if (!navigator.geolocation) { set('location', 'Geolocation not supported'); return; }
+                set('location', 'Detecting location…');
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => set('location', `Lat ${pos.coords.latitude.toFixed(5)}, Lng ${pos.coords.longitude.toFixed(5)}`),
+                    () => set('location', 'Location access denied')
+                );
+            };
+
+            const validateStep1 = () => {
+                const e = {};
+                if (!data.title.trim()) e.title = 'Issue title is required';
+                if (!data.category) e.category = 'Please select a category';
+                if (!data.description.trim()) e.description = 'Description is required';
+                return e;
+            };
+
+            const validateStep2 = () => {
+                const e = {};
+                if (!data.location.trim()) e.location = 'Please enter or detect your location';
+                return e;
+            };
+
+            const nextStep = () => {
+                if (step === 1) {
+                    const e = validateStep1();
+                    if (Object.keys(e).length) { setErrors(e); return; }
+                }
+                if (step === 2) {
+                    const e = validateStep2();
+                    if (Object.keys(e).length) { setErrors(e); return; }
+                }
+                setErrors({});
+                setStep(s => s + 1);
+            };
+
+            const catObj = CATEGORIES.find(c => c.key === data.category);
+            const progress = submitted ? 100 : ((step - 1) / 2) * 100;
+
+            return (
+                <div className="modal-backdrop" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+                    <div className="modal-card-wide">
+
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-4">
+                            <div>
+                                <h2 className="text-lg font-extrabold text-gray-900">
+                                    {submitted ? 'Report Submitted!' : `Report an Issue`}
+                                </h2>
+                                {!submitted && <p className="text-xs text-gray-400 mt-0.5">Step {step} of 3</p>}
+                            </div>
+                            <button onClick={onClose} className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors" aria-label="Close">
+                                <Icon name="X" size={16} className="text-gray-600" />
+                            </button>
+                        </div>
+
+                        {/* Progress bar */}
+                        {!submitted && (
+                            <div className="mb-6">
+                                <div className="report-progress-bar">
+                                    <div className="report-progress-fill" style={{ width: `${((step - 1) / 2) * 100}%` }} />
+                                </div>
+                                <div className="flex justify-between mt-2">
+                                    {['Issue Details', 'Photo & Location', 'Review & Submit'].map((label, i) => (
+                                        <span key={i} className="text-xs font-semibold" style={{ color: step >= i + 1 ? '#1A6B3C' : '#9ca3af' }}>
+                                            {label}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* ── SUCCESS ── */}
+                        {submitted && (
+                            <div className="report-step text-center py-6">
+                                <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
+                                    style={{ background: 'linear-gradient(135deg,#1A6B3C,#2E9455)' }}>
+                                    <Icon name="CheckCheck" size={38} className="text-white" />
+                                </div>
+                                <p className="text-xl font-extrabold text-gray-900 mb-2">Report submitted!</p>
+                                <p className="text-gray-500 text-sm mb-6">You will be notified when the status updates.</p>
+                                <div className="bg-primary-50 border border-primary-100 rounded-xl px-4 py-3 mb-6 flex items-center gap-3">
+                                    <Icon name="Brain" size={20} className="text-primary-600" />
+                                    <span className="text-sm text-primary-700 font-medium">Your report is now being reviewed by our AI system.</span>
+                                </div>
+                                <button onClick={onClose} className="modal-submit">Back to Home</button>
+                            </div>
+                        )}
+
+                        {/* ── STEP 1 ── */}
+                        {!submitted && step === 1 && (
+                            <div className="report-step space-y-4">
+                                {/* Title */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1">Issue Title</label>
+                                    <div className="relative">
+                                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><Icon name="FileText" size={15} /></span>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g. Large pothole on MG Road"
+                                            value={data.title}
+                                            onChange={e => set('title', e.target.value)}
+                                            className={`auth-field ${errors.title ? 'field-error' : ''}`}
+                                        />
+                                    </div>
+                                    {errors.title && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.title}</p>}
+                                </div>
+
+                                {/* Category */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Category</label>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {CATEGORIES.map(c => (
+                                            <button
+                                                key={c.key}
+                                                type="button"
+                                                onClick={() => set('category', c.key)}
+                                                className={`cat-pick ${data.category === c.key ? 'selected' : ''}`}
+                                            >
+                                                <Icon name={c.icon} size={20} className={data.category === c.key ? 'text-white' : 'text-gray-500'} />
+                                                {c.label}
+                                            </button>
+                                        ))}
+                                    </div>
+                                    {errors.category && <p className="text-xs text-red-500 mt-1 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.category}</p>}
+                                </div>
+
+                                {/* Description */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1">Description</label>
+                                    <textarea
+                                        placeholder="Describe the issue in detail…"
+                                        value={data.description}
+                                        onChange={e => set('description', e.target.value)}
+                                        className={`report-textarea ${errors.description ? 'field-error' : ''}`}
+                                    />
+                                    {errors.description && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.description}</p>}
+                                </div>
+
+                                <button onClick={nextStep} className="modal-submit flex items-center justify-center gap-2">
+                                    Next <Icon name="ArrowRight" size={16} className="text-white" />
+                                </button>
+                            </div>
+                        )}
+
+                        {/* ── STEP 2 ── */}
+                        {!submitted && step === 2 && (
+                            <div className="report-step space-y-4">
+                                {/* Drop zone */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">Photo (optional)</label>
+                                    <div
+                                        className={`drop-zone ${isDrag ? 'drag-over' : ''}`}
+                                        onClick={() => fileRef.current.click()}
+                                        onDragOver={(e) => { e.preventDefault(); setIsDrag(true); }}
+                                        onDragLeave={() => setIsDrag(false)}
+                                        onDrop={(e) => { e.preventDefault(); setIsDrag(false); handleFile(e.dataTransfer.files[0]); }}
+                                    >
+                                        {data.photo ? (
+                                            <div className="flex flex-col items-center gap-2">
+                                                <img src={data.photo} alt="preview" className="w-full max-h-40 object-cover rounded-lg" />
+                                                <span className="text-xs text-gray-500">{data.photoName}</span>
+                                                <span className="text-xs text-primary-600 font-semibold">Click to change</span>
+                                            </div>
+                                        ) : (
+                                            <div className="flex flex-col items-center gap-2 text-gray-400">
+                                                <Icon name="Upload" size={32} className="text-gray-300" />
+                                                <p className="text-sm font-medium text-gray-500">Drag & drop or <span className="text-primary-600 font-semibold">click to upload</span></p>
+                                                <p className="text-xs text-gray-400">PNG, JPG, WEBP up to 10MB</p>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={e => handleFile(e.target.files[0])} />
+                                </div>
+
+                                {/* Location */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-1">Location</label>
+                                    <div className="flex gap-2">
+                                        <div className="relative flex-1">
+                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"><Icon name="MapPin" size={15} /></span>
+                                            <input
+                                                type="text"
+                                                placeholder="Enter area or street name"
+                                                value={data.location}
+                                                onChange={e => set('location', e.target.value)}
+                                                className={`auth-field ${errors.location ? 'field-error' : ''}`}
+                                            />
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={useLocation}
+                                            className="flex items-center gap-1.5 px-3 py-2 rounded-xl border-2 border-primary-600 text-primary-600 font-semibold text-xs hover:bg-primary-50 transition-colors whitespace-nowrap"
+                                        >
+                                            <Icon name="LocateFixed" size={14} className="text-primary-600" />
+                                            Use My Location
+                                        </button>
+                                    </div>
+                                    {errors.location && <p className="text-xs text-red-500 mt-0.5 flex items-center gap-1"><Icon name="AlertCircle" size={11} className="text-red-400" />{errors.location}</p>}
+                                </div>
+
+                                <div className="flex gap-3 pt-1">
+                                    <button onClick={() => setStep(1)} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-1">
+                                        <Icon name="ArrowLeft" size={15} className="text-gray-500" /> Back
+                                    </button>
+                                    <button onClick={nextStep} className="flex-1 modal-submit flex items-center justify-center gap-1.5">
+                                        Next <Icon name="ArrowRight" size={15} className="text-white" />
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* ── STEP 3 — REVIEW ── */}
+                        {!submitted && step === 3 && (
+                            <div className="report-step space-y-4">
+                                <div className="bg-gray-50 rounded-2xl p-4 space-y-3 border border-gray-100">
+                                    <h3 className="text-sm font-bold text-gray-700 mb-2">Report Summary</h3>
+
+                                    <div className="flex gap-2">
+                                        <span className="text-gray-400 w-24 text-xs font-semibold shrink-0 pt-0.5">Title</span>
+                                        <span className="text-sm text-gray-800 font-medium">{data.title}</span>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <span className="text-gray-400 w-24 text-xs font-semibold shrink-0 pt-0.5">Category</span>
+                                        {catObj && (
+                                            <span className="inline-flex items-center gap-1.5 text-sm text-gray-800 font-medium">
+                                                <Icon name={catObj.icon} size={14} className="text-primary-600" />
+                                                {catObj.label}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <span className="text-gray-400 w-24 text-xs font-semibold shrink-0 pt-0.5">Description</span>
+                                        <span className="text-sm text-gray-700 leading-relaxed">{data.description}</span>
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <span className="text-gray-400 w-24 text-xs font-semibold shrink-0 pt-0.5">Location</span>
+                                        <span className="text-sm text-gray-800 font-medium">{data.location}</span>
+                                    </div>
+                                    {data.photo && (
+                                        <div className="flex gap-2">
+                                            <span className="text-gray-400 w-24 text-xs font-semibold shrink-0 pt-0.5">Photo</span>
+                                            <img src={data.photo} alt="preview" className="w-32 h-20 object-cover rounded-lg border border-gray-200" />
+                                        </div>
+                                    )}
+                                </div>
+
+                                {/* AI notice */}
+                                <div className="flex items-start gap-3 bg-primary-50 border border-primary-100 rounded-xl px-4 py-3">
+                                    <Icon name="Brain" size={18} className="text-primary-600 mt-0.5 shrink-0" />
+                                    <p className="text-sm text-primary-700 leading-snug">
+                                        <span className="font-bold">AI Validation: </span>
+                                        Your report will be reviewed by our AI before going live to ensure accuracy and prevent duplicates.
+                                    </p>
+                                </div>
+
+                                <div className="flex gap-3 pt-1">
+                                    <button onClick={() => setStep(2)} className="flex-1 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors flex items-center justify-center gap-1">
+                                        <Icon name="ArrowLeft" size={15} className="text-gray-500" /> Back
+                                    </button>
+                                    <button
+                                        onClick={() => { setErrors({}); setSubmitted(true); }}
+                                        className="flex-1 modal-submit flex items-center justify-center gap-1.5"
+                                    >
+                                        <Icon name="Send" size={15} className="text-white" /> Submit Report
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                    </div>
+                </div>
+            );
+        }
+
+        /* ─────────────── VIEW ISSUES PAGE ─────────────── */
+        const ISSUES = [
+            { id: 1, title: 'Large pothole on MG Road', category: 'Pothole', catIcon: 'TriangleAlert', status: 'Pending', date: '2026-03-01', location: 'MG Road, Bengaluru', votes: 14, x: 18, y: 28 },
+            { id: 2, title: 'Overflowing bin near City Park', category: 'Garbage', catIcon: 'Trash2', status: 'In Progress', date: '2026-03-03', location: 'City Park Gate, Pune', votes: 27, x: 58, y: 52 },
+            { id: 3, title: 'Street light out for 3 weeks', category: 'Street Light', catIcon: 'Lightbulb', status: 'Resolved', date: '2026-02-22', location: 'Infantry Road, Bengaluru', votes: 9, x: 80, y: 22 },
+            { id: 4, title: 'Water leak flooding the pavement', category: 'Water Leak', catIcon: 'Droplets', status: 'Pending', date: '2026-03-05', location: 'Nehru Nagar, Chennai', votes: 31, x: 35, y: 68 },
+            { id: 5, title: 'Deep cracks on the main highway', category: 'Road Damage', catIcon: 'Construction', status: 'In Progress', date: '2026-03-07', location: 'NH-48, Mumbai', votes: 42, x: 65, y: 78 },
+            { id: 6, title: 'Broken gate in community garden', category: 'Public Property', catIcon: 'Building2', status: 'Resolved', date: '2026-02-28', location: 'Sector 12, Hyderabad', votes: 6, x: 48, y: 38 },
+        ];
+
+        const STATUS_COLOR = {
+            'Pending': { dot: '#ef4444', bg: '#fef2f2', text: '#dc2626' },
+            'In Progress': { dot: '#f97316', bg: '#fff7ed', text: '#ea580c' },
+            'Resolved': { dot: '#16a34a', bg: '#f0fdf4', text: '#15803d' },
+        };
+
+        function ViewIssues({ onBack }) {
+            const [tab, setTab] = useState('map');   // 'map' | 'list'
+            const [openPin, setOpenPin] = useState(null);    // issue id
+            const [catFilter, setCatFilter] = useState('');
+            const [statusFilter, setStatusFilter] = useState('');
+            const [votes, setVotes] = useState(() => Object.fromEntries(ISSUES.map(i => [i.id, i.votes])));
+            const [voted, setVoted] = useState({});
+
+            const toggleVote = (id) => {
+                setVoted(v => {
+                    const now = !v[id];
+                    setVotes(vv => ({ ...vv, [id]: vv[id] + (now ? 1 : -1) }));
+                    return { ...v, [id]: now };
+                });
+            };
+
+            const filtered = ISSUES.filter(i =>
+                (!catFilter || i.category === catFilter) &&
+                (!statusFilter || i.status === statusFilter)
+            );
+
+            const catOptions = [...new Set(ISSUES.map(i => i.category))];
+
+            return (
+                <div className="issues-page">
+                    {/* Top bar */}
+                    <div className="sticky top-16 z-40 bg-white border-b border-gray-100 shadow-sm">
+                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4 flex-wrap">
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={onBack}
+                                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg border-2 border-gray-200 text-gray-600 font-semibold text-sm hover:bg-gray-50 transition-colors"
+                                >
+                                    <Icon name="ArrowLeft" size={16} className="text-gray-500" /> Back
+                                </button>
+                                <h1 className="text-lg font-extrabold text-gray-900">Issue Tracker</h1>
+                            </div>
+                            <div className="flex items-center gap-2 p-1 bg-gray-100 rounded-xl">
+                                <button onClick={() => setTab('map')} className={`issues-tab ${tab === 'map' ? 'active' : 'inactive'}`}>
+                                    <span className="flex items-center gap-1.5"><Icon name="Map" size={14} className={tab === 'map' ? 'text-white' : 'text-gray-500'} />Map View</span>
+                                </button>
+                                <button onClick={() => setTab('list')} className={`issues-tab ${tab === 'list' ? 'active' : 'inactive'}`}>
+                                    <span className="flex items-center gap-1.5"><Icon name="List" size={14} className={tab === 'list' ? 'text-white' : 'text-gray-500'} />List View</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+                        {/* ── MAP TAB ── */}
+                        {tab === 'map' && (
+                            <div>
+                                <p className="text-sm text-gray-500 mb-4">Click any pin to see issue details.</p>
+                                <div className="sim-map" onClick={() => setOpenPin(null)}>
+                                    {/* Street grid lines */}
+                                    <svg width="100%" height="100%" style={{ position: 'absolute', inset: 0, opacity: 0.25 }}>
+                                        {/* Horizontal streets */}
+                                        {[15, 30, 45, 60, 75, 90].map(y => (
+                                            <line key={`h${y}`} x1="0" y1={`${y}%`} x2="100%" y2={`${y}%`} stroke="#1A6B3C" strokeWidth="1.5" strokeDasharray="6 4" />
+                                        ))}
+                                        {/* Vertical streets */}
+                                        {[12, 25, 38, 52, 65, 78, 90].map(x => (
+                                            <line key={`v${x}`} x1={`${x}%`} y1="0" x2={`${x}%`} y2="100%" stroke="#1A6B3C" strokeWidth="1.5" strokeDasharray="6 4" />
+                                        ))}
+                                        {/* Main roads (thicker) */}
+                                        <line x1="0" y1="50%" x2="100%" y2="50%" stroke="#1A6B3C" strokeWidth="3" />
+                                        <line x1="50%" y1="0" x2="50%" y2="100%" stroke="#1A6B3C" strokeWidth="3" />
+                                        {/* Diagonal connector */}
+                                        <line x1="0" y1="100%" x2="100%" y2="0" stroke="#2E9455" strokeWidth="1.5" strokeDasharray="8 5" opacity="0.5" />
+                                    </svg>
+                                    {/* Map label */}
+                                    <div style={{ position: 'absolute', bottom: 12, right: 14, background: 'white', borderRadius: '0.5rem', padding: '4px 10px', fontSize: '0.7rem', fontWeight: 700, color: '#1A6B3C', border: '1px solid #c3e6d0', opacity: 0.85 }}>
+                                        FixMyArea City Map
+                                    </div>
+
+                                    {/* Pins */}
+                                    {ISSUES.map(issue => {
+                                        const sc = STATUS_COLOR[issue.status];
+                                        return (
+                                            <div key={issue.id}>
+                                                <div
+                                                    className="map-pin"
+                                                    style={{ background: sc.dot, left: `${issue.x}%`, top: `${issue.y}%`, transform: 'translate(-50%,-50%)' }}
+                                                    onClick={(e) => { e.stopPropagation(); setOpenPin(openPin === issue.id ? null : issue.id); }}
+                                                    title={issue.title}
+                                                />
+                                                {openPin === issue.id && (
+                                                    <div
+                                                        className="pin-popup"
+                                                        style={{
+                                                            left: `${Math.min(issue.x, 68)}%`,
+                                                            top: `${issue.y > 60 ? issue.y - 30 : issue.y + 5}%`,
+                                                        }}
+                                                        onClick={e => e.stopPropagation()}
+                                                    >
+                                                        <p className="font-bold text-gray-900 text-sm mb-1 leading-snug">{issue.title}</p>
+                                                        <div className="flex items-center gap-1.5 mb-1">
+                                                            <Icon name={issue.catIcon} size={13} className="text-gray-500" />
+                                                            <span className="text-xs text-gray-500">{issue.category}</span>
+                                                        </div>
+                                                        <span
+                                                            className="status-badge"
+                                                            style={{ background: sc.bg, color: sc.text }}
+                                                        >
+                                                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: sc.dot, display: 'inline-block' }}></span>
+                                                            {issue.status}
+                                                        </span>
+                                                        <p className="text-xs text-gray-400 mt-1.5">{issue.date}</p>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                {/* Legend */}
+                                <div className="flex gap-4 mt-4">
+                                    {Object.entries(STATUS_COLOR).map(([s, c]) => (
+                                        <div key={s} className="flex items-center gap-1.5">
+                                            <span style={{ width: 12, height: 12, borderRadius: '50%', background: c.dot, display: 'inline-block', border: '2px solid white', boxShadow: '0 1px 4px rgba(0,0,0,0.2)' }}></span>
+                                            <span className="text-xs font-semibold text-gray-500">{s}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* ── LIST TAB ── */}
+                        {tab === 'list' && (
+                            <div>
+                                {/* Filter bar */}
+                                <div className="flex gap-3 mb-5 flex-wrap items-center">
+                                    <Icon name="Filter" size={16} className="text-gray-400" />
+                                    <select value={catFilter} onChange={e => setCatFilter(e.target.value)} className="filter-select">
+                                        <option value="">All Categories</option>
+                                        {catOptions.map(c => <option key={c} value={c}>{c}</option>)}
+                                    </select>
+                                    <select value={statusFilter} onChange={e => setStatusFilter(e.target.value)} className="filter-select">
+                                        <option value="">All Statuses</option>
+                                        {['Pending', 'In Progress', 'Resolved'].map(s => <option key={s} value={s}>{s}</option>)}
+                                    </select>
+                                    {(catFilter || statusFilter) && (
+                                        <button onClick={() => { setCatFilter(''); setStatusFilter(''); }} className="text-xs font-semibold text-primary-600 hover:underline">
+                                            Clear filters
+                                        </button>
+                                    )}
+                                    <span className="ml-auto text-xs text-gray-400 font-medium">{filtered.length} issue{filtered.length !== 1 ? 's' : ''}</span>
+                                </div>
+
+                                {/* Cards */}
+                                {filtered.length === 0 ? (
+                                    <div className="text-center py-16 text-gray-400">
+                                        <Icon name="SearchX" size={36} className="text-gray-200 mb-3" />
+                                        <p className="font-semibold">No issues match your filters.</p>
+                                    </div>
+                                ) : (
+                                    <div className="grid sm:grid-cols-2 gap-4">
+                                        {filtered.map(issue => {
+                                            const sc = STATUS_COLOR[issue.status];
+                                            return (
+                                                <div key={issue.id} className="issue-card">
+                                                    <div className="flex items-start justify-between gap-2 mb-2">
+                                                        <p className="font-bold text-gray-900 text-sm leading-snug">{issue.title}</p>
+                                                        <span
+                                                            className="status-badge shrink-0"
+                                                            style={{ background: sc.bg, color: sc.text }}
+                                                        >
+                                                            <span style={{ width: 6, height: 6, borderRadius: '50%', background: sc.dot, display: 'inline-block' }}></span>
+                                                            {issue.status}
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex items-center gap-1.5 text-xs text-gray-500 mb-1">
+                                                        <Icon name={issue.catIcon} size={13} className="text-gray-400" />
+                                                        <span className="font-semibold" style={{ color: '#1A6B3C' }}>{issue.category}</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-1 text-xs text-gray-400 mb-1">
+                                                        <Icon name="MapPin" size={12} className="text-gray-300" />
+                                                        {issue.location}
+                                                    </div>
+                                                    <div className="flex items-center gap-1 text-xs text-gray-400 mb-3">
+                                                        <Icon name="Calendar" size={12} className="text-gray-300" />
+                                                        {issue.date}
+                                                    </div>
+                                                    <button
+                                                        className={`upvote-btn ${voted[issue.id] ? 'voted' : ''}`}
+                                                        onClick={() => toggleVote(issue.id)}
+                                                    >
+                                                        <Icon name="ArrowBigUp" size={15} className={voted[issue.id] ? 'text-primary-600' : 'text-gray-400'} />
+                                                        {votes[issue.id]}
+                                                    </button>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
         /* ─────────────── APP ─────────────── */
         function App() {
-            const [modalView, setModalView] = useState(null); // null | 'login' | 'register'
+            const [modalView, setModalView] = useState(null);  // null | 'login' | 'register'
+            const [reportOpen, setReportOpen] = useState(false);
+            const [issuesOpen, setIssuesOpen] = useState(false);
 
             const openModal = (view) => { setModalView(view); document.body.style.overflow = 'hidden'; };
             const closeModal = () => { setModalView(null); document.body.style.overflow = ''; };
+            const openReport = () => { setReportOpen(true); document.body.style.overflow = 'hidden'; };
+            const closeReport = () => { setReportOpen(false); document.body.style.overflow = ''; };
+            const openIssues = () => { setIssuesOpen(true); window.scrollTo(0, 0); };
+            const closeIssues = () => { setIssuesOpen(false); };
+
+            if (issuesOpen) {
+                return (
+                    <>
+                        <Navbar onOpenModal={openModal} />
+                        <ViewIssues onBack={closeIssues} />
+                    </>
+                );
+            }
 
             return (
                 <>
                     <Navbar onOpenModal={openModal} />
                     <main>
-                        <Hero />
+                        <Hero onOpenReport={openReport} onOpenIssues={openIssues} />
                         <HowItWorks />
                         <Features />
                         <IssueCategories />
-                        <CTABanner />
+                        <CTABanner onOpenIssues={openIssues} />
                     </main>
                     <Footer />
                     {modalView && <AuthModal initialView={modalView} onClose={closeModal} />}
+                    {reportOpen && <ReportModal onClose={closeReport} />}
                 </>
             );
         }
